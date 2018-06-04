@@ -8,15 +8,17 @@ class Bookshelf extends Component {
   }
 
   componentDidMount() {
-    BooksAPI.update({}, this.props.shelfValue)
-      .then((response) => {
-        const bookIDs = response[this.props.shelfValue]
-        this.setState(() => ({
-          books: this.props.books.filter((book) => {
-            return bookIDs.indexOf(book.id) !== -1
-          })
-        }))
-      })
+    const books = this.props.books
+    console.log(books)
+    for (var i = 0; i < books.length; i++) {
+      BooksAPI.get(books[i])
+        .then((response) => {
+          console.log('response', response)
+          this.setState((prevState) => ({
+            books: [...prevState.books, response]
+          }))
+        })
+    }
   }
 
   render() {
@@ -26,13 +28,13 @@ class Bookshelf extends Component {
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.state.books.map((book, key) => (
+            {this.props.books.map((book, key) => (
               <li key={key}>
                 <Book
                   id={book.id}
                   title={book.title}
                   authors={book.authors}
-                  backgroundImage={book.imageLinks.thumbnail}
+                  backgroundImage={book.imageLinks}
                   updateShelves={this.props.updateShelves}
                 />
               </li>

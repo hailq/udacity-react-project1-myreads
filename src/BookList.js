@@ -12,19 +12,19 @@ class BookList extends Component {
             <div className="list-books-content">
               <div>
                 <Bookshelf
-                  books={this.props.books}
+                  books={this.props.shelves['currentlyReading']}
                   shelfValue="currentlyReading"
                   shelfName="Currently Reading"
                   updateShelves={this.props.updateShelves}
                 />
                 <Bookshelf
-                  books={this.props.books}
+                  books={this.props.shelves['wantToRead']}
                   shelfValue="wantToRead"
                   shelfName="Want To Read"
                   updateShelves={this.props.updateShelves}
                 />
                 <Bookshelf
-                  books={this.props.books}
+                  books={this.props.shelves['read']}
                   shelfValue="read"
                   shelfName="Read"
                   updateShelves={this.props.updateShelves}

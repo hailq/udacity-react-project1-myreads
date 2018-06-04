@@ -6,17 +6,13 @@ import * as BooksAPI from './BooksAPI'
 import BookList from './BookList'
 import SearchPage from './SearchPage'
 
-// const CURRENTLY_READING = "Currently Reading"
-// const WANT_TO_READ = "Want To Read"
-// const READ = "READ"
-
 class BooksApp extends React.Component {
   state = {
-    // shelves: {
-    //   currentlyReading: [],
-    //   wantToRead: [],
-    //   read: []
-    // },
+    shelves: {
+      currentlyReading: [],
+      wantToRead: [],
+      read: []
+    },
     books: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -28,10 +24,10 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll()
+    BooksAPI.update({}, 'read')
       .then((response) => {
         this.setState(() => ({
-          books: response
+          shelves: response
         }))
       })
   }
