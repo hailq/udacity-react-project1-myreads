@@ -28,6 +28,10 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.updateState()
+  }
+
+  updateState = () => {
     BooksAPI.getAll()
       .then((response) => {
         this.setState(() => ({
@@ -41,10 +45,9 @@ class BooksApp extends React.Component {
     console.log(selectedValue)
     BooksAPI.update({id: this.props.id}, selectedValue)
       .then((response) => {
-        this.setState(() => ({
-          shelves: response
-        }))
+        console.log('response', response)
       })
+    this.updateState()
   }
 
   openOrCloseSearchPage = () => {
