@@ -20,7 +20,6 @@ class Bookshelf extends Component {
   }
 
   render() {
-    console.log(this.props.books)
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
@@ -33,6 +32,7 @@ class Bookshelf extends Component {
                   title={book.title}
                   authors={book.authors}
                   backgroundImage={book.imageLinks.thumbnail}
+                  shelf={this.props.shelfValue}
                   updateShelves={this.props.updateShelves}
                 />
               </li>

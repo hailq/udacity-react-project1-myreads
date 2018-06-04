@@ -53,6 +53,7 @@ class SearchPage extends Component {
                     title={book.title}
                     authors={book.authors}
                     backgroundImage={book.imageLinks.smallThumbnail}
+                    shelf={this.props.shelfValue}
                     updateShelves={this.props.updateShelves}
                   />
                 </li>

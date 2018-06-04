@@ -6,17 +6,13 @@ import * as BooksAPI from './BooksAPI'
 import BookList from './BookList'
 import SearchPage from './SearchPage'
 
-// const CURRENTLY_READING = "Currently Reading"
-// const WANT_TO_READ = "Want To Read"
-// const READ = "READ"
-
 class BooksApp extends React.Component {
   state = {
-    // shelves: {
-    //   currentlyReading: [],
-    //   wantToRead: [],
-    //   read: []
-    // },
+    shelves: {
+      currentlyReading: [],
+      wantToRead: [],
+      read: []
+    },
     books: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -28,22 +24,29 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll()
-      .then((response) => {
-        this.setState(() => ({
-          books: response
-        }))
-      })
+    this.updateState()
   }
 
   updateShelves = (event) => {
     const selectedValue = event.target.value
     console.log(selectedValue)
+    console.log(this.props.id)
     BooksAPI.update({id: this.props.id}, selectedValue)
       .then((response) => {
+        console.log(response)
         this.setState(() => ({
           shelves: response
         }))
+      })
+  }
+
+  updateState = () => {
+    BooksAPI.getAll()
+      .then((response) => {
+        this.setState(() => ({
+          books: response
+        }))
+        console.log('this.state.books', this.state.books)
       })
   }
 
@@ -57,13 +60,13 @@ class BooksApp extends React.Component {
       <div className="app">
         {this.state.showSearchPage ? 
           <SearchPage 
-            updateShelves={this.updateShelves}
+            updateShelves={this.updateState}
             openOrCloseSearchPage={this.openOrCloseSearchPage}
           />
         : 
           <BookList
             books={this.state.books}
-            updateShelves={this.updateShelves}
+            updateShelves={this.updateState}
             openOrCloseSearchPage={this.openOrCloseSearchPage}
             shelves={this.state.shelves}  
           />
