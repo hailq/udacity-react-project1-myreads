@@ -16,6 +16,7 @@ class Bookshelf extends Component {
             return bookIDs.indexOf(book.id) !== -1
           })
         }))
+        this.props.updateShelves(this.props.shelfValue, this.state.books)
       })
   }
 
@@ -33,7 +34,7 @@ class Bookshelf extends Component {
                   authors={book.authors}
                   backgroundImage={book.imageLinks.thumbnail}
                   shelf={this.props.shelfValue}
-                  updateShelves={this.props.updateShelves}
+                  updateState={this.props.updateState}
                 />
               </li>
             ))

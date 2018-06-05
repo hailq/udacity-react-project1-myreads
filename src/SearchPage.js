@@ -22,6 +22,19 @@ class SearchPage extends Component {
     }
   }
 
+  getShelfOfBook = (id) => {
+    const shelves = this.props.shelves
+    for (var shelf in shelves) {
+      for (var i = 0; i < shelves[shelf].length; i++) {
+        if (id === shelves[shelf][i].id) {
+          console.log(shelves[shelf][i].title + " " + shelves[shelf][i].authors)
+          return shelf
+        }
+      }
+    }
+    return 'none'
+  }
+
   render() {
     return (
       <div className="search-books">
@@ -31,14 +44,6 @@ class SearchPage extends Component {
             onClick={() => this.props.openOrCloseSearchPage()}
           >Close</a>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
             <input type="text" placeholder="Search by title or author" onChange={this.searchWithCurrentQuery}/>
 
           </div>
@@ -53,8 +58,9 @@ class SearchPage extends Component {
                     title={book.title}
                     authors={book.authors}
                     backgroundImage={book.imageLinks.smallThumbnail}
-                    shelf={this.props.shelfValue}
+                    shelf={this.getShelfOfBook(book.id)}
                     updateShelves={this.props.updateShelves}
+                    updateState={this.props.updateState}
                   />
                 </li>
               )

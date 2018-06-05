@@ -1,5 +1,4 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import * as BooksAPI from './BooksAPI'
 
@@ -11,7 +10,7 @@ class BooksApp extends React.Component {
     shelves: {
       currentlyReading: [],
       wantToRead: [],
-      read: []
+      read: [],
     },
     books: [],
     /**
@@ -27,17 +26,13 @@ class BooksApp extends React.Component {
     this.updateState()
   }
 
-  updateShelves = (event) => {
-    const selectedValue = event.target.value
-    console.log(selectedValue)
-    console.log(this.props.id)
-    BooksAPI.update({id: this.props.id}, selectedValue)
-      .then((response) => {
-        console.log(response)
-        this.setState(() => ({
-          shelves: response
-        }))
-      })
+  updateShelves = (shelfName, value) => {
+    this.setState((prevState) => ({
+      shelves: {
+        ...prevState.shelves,
+        [shelfName]: value
+      }
+    }))
   }
 
   updateState = () => {
@@ -46,7 +41,6 @@ class BooksApp extends React.Component {
         this.setState(() => ({
           books: response
         }))
-        console.log('this.state.books', this.state.books)
       })
   }
 
@@ -59,16 +53,19 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? 
-          <SearchPage 
-            updateShelves={this.updateState}
+          <SearchPage
+            shelves={this.state.shelves}
+            updateState={this.updateState}
+            updateShelves={this.updateShelves}
             openOrCloseSearchPage={this.openOrCloseSearchPage}
           />
         : 
           <BookList
             books={this.state.books}
-            updateShelves={this.updateState}
+            updateState={this.updateState}
             openOrCloseSearchPage={this.openOrCloseSearchPage}
             shelves={this.state.shelves}  
+            updateShelves={this.updateShelves}
           />
         }
       </div>

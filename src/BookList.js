@@ -15,18 +15,21 @@ class BookList extends Component {
                   books={this.props.books}
                   shelfValue="currentlyReading"
                   shelfName="Currently Reading"
+                  updateState={this.props.updateState}
                   updateShelves={this.props.updateShelves}
                 />
                 <Bookshelf
                   books={this.props.books}
                   shelfValue="wantToRead"
                   shelfName="Want To Read"
+                  updateState={this.props.updateState}
                   updateShelves={this.props.updateShelves}
                 />
                 <Bookshelf
                   books={this.props.books}
                   shelfValue="read"
                   shelfName="Read"
+                  updateState={this.props.updateState}
                   updateShelves={this.props.updateShelves}
                 />
               </div>

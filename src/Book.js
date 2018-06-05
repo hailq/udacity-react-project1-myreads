@@ -11,7 +11,7 @@ class Book extends Component {
     BooksAPI.update({id: this.props.id}, selectedValue)
       .then((response) => {
         console.log(response)
-        this.props.updateShelves()
+        this.props.updateState()
       })
     
   }
@@ -26,7 +26,7 @@ class Book extends Component {
               value={this.state.selectedValue}
               onChange={this.handleSelect}
             >
-              <option value="none" disabled>Move to...</option>
+              <option value="disabled" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
